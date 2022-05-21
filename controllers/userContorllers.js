@@ -53,7 +53,24 @@ const updateUser = async (req, res) => {
     ,)
     res.status(200).json(updatedUser)
 }
-
+const addVote = asyncHandler(async(req,res) =>{
+    console.log(req.params.id)
+    const user =  await User.findById(req.params.id)
+    if(!user){
+        res.status(400)
+        throw new Error('User not found')
+    }
+    console.log(req.body.vote)
+    const updatedUser = await User.findByIdAndUpdate({_id:req.params.id},
+        {
+            $push:{
+                votes:req.body
+            }
+        }
+        )
+        const users = await User.find()
+        res.status(200).json(users)
+})
 const deleteUser = asyncHandler(async (req, res) => {
     const { id } = req.params.id
     const user = await User.findById(id)
@@ -69,5 +86,6 @@ module.exports = {
     getUsers,
     setUser,
     updateUser,
+    addVote,
     deleteUser,
 }
