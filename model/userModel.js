@@ -1,5 +1,20 @@
 const mongoose = require('mongoose')
 
+//wallet schema
+const walletSchema = mongoose.Schema({
+    name:String,
+    walletNumber:String,
+})
+//UserBonus schema
+const voteSchema = mongoose.Schema({
+    vote:Number, //1 | 0
+    user:String,
+})
+const userBonusSchema = mongoose.Schema({
+    bonus:Number,
+    wallet:walletSchema,
+})
+
 const userShchema = mongoose.Schema({
     name: {
         type:String,
@@ -21,6 +36,14 @@ const userShchema = mongoose.Schema({
     phone: String,
     city: String,
     address: String,
+    userBonus:{
+        type:userBonusSchema
+    },
+    votes:[voteSchema],
+    usedWallet:{
+        type:String
+    },
+    wallets:[walletSchema]
 },
 {
     timestamps: true,
