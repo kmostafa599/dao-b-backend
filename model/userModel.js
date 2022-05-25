@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 //wallet schema
 const walletSchema = mongoose.Schema({
+    _id:String,
     name:String,
     walletNumber:String,
 })
@@ -11,11 +12,14 @@ const voteSchema = mongoose.Schema({
     user:String,
 })
 const userBonusSchema = mongoose.Schema({
-    bonus:Number,
+    bonus:String,
     wallet:walletSchema,
+    approved:Boolean,
+    declined:Boolean,
+
 })
 
-const userShchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     name: {
         type:String,
         required:[true,'Please add a name'],
@@ -39,10 +43,9 @@ const userShchema = mongoose.Schema({
     userBonus:{
         type:userBonusSchema
     },
+    bonusHistory:[userBonusSchema],
     votes:[voteSchema],
-    usedWallet:{
-        type:String
-    },
+    wallet:String,
     wallets:[walletSchema]
 },
 {
@@ -50,4 +53,4 @@ const userShchema = mongoose.Schema({
 }
 )
 
-module.exports = mongoose.model('User',userShchema)
+module.exports = mongoose.model('User',userSchema)

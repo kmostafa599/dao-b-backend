@@ -16,14 +16,14 @@ const registerUser = asyncHandler(async (req, res) => {
     } = req.body
     console.log(req.body)
     if (!name || !email || !password) {
-        res.status(400)
-        throw new Error('Please add all fields')
+         return res.status(400).json({msg:'Please add all fields'})
+        // throw new Error('Please add all fields')
     }
     //check if user existss
     const userExists = await User.findOne({ email })
     if (userExists) {
-        res.status(400)
-        throw new Error('User already exists')
+        return res.status(400).json({msg:'User already exists'})
+        // throw new Error()
     }
     //hash password
     const salt = await bcrypt.genSalt(10)
@@ -34,15 +34,15 @@ const registerUser = asyncHandler(async (req, res) => {
         password: hashedPassword,
     })
     if (user) {
-        res.status(201).json({
+        return res.status(201).json({
             _id: user.id,
             name: user.name,
             email: user.email,
             token: generateToken(user._id)
         })
     } else {
-        res.status(400)
-        throw new Error("Invalid user data")
+        return res.status(400).json({msg:'Invalid user data'})
+        // throw new Error("Invalid user data")
     }
 
 })
