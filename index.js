@@ -17,6 +17,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use('/api/v1/users',require('./routes/userRoutes'))
 app.use('/api/v1/auth',require('./routes/authRoutes'))
 app.use('/api/v1/wallet',require('./routes/walletRoutes'))
+app.use('/api/v1/teams', require('./routes/teamRoutes'))
 
 app.use(errorHandler)
 

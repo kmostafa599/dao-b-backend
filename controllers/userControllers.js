@@ -24,18 +24,20 @@ const setUser = asyncHandler(async (req, res) => {
         phone,
         city,
         address,
+        password,
     } = req.body
     const user = await User.create({ //create the user
         name: firstName,
-        lastName:lastName,
-        email: email,
-        business: business,
-        image: image,
-        position: position,
-        team: team,
-        phone: phone,
-        city: city,
-        address: address,
+        lastName,
+        email,
+        business,
+        image,
+        position,
+        team,
+        phone,
+        city,
+        address,
+        password
     })
 
     res.status(201).json(user)

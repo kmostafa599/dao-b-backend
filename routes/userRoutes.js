@@ -5,7 +5,7 @@ const { getUsers, setUser,  updateUser, deleteUser, addVote, addWallet,setWallet
 
 
 router.get('/',getUsers) //get
-router.post('/',setUser) //set
+router.post('/create',setUser) //set
 router.post('/bonus/add/:id', addBonus)
 router.put('/bonus/approve/:id', setApproved)
 router.put('/bonus/decline/:id', setDeclined)
