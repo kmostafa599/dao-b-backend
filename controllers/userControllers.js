@@ -82,18 +82,18 @@ const addBonus = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('User not found')
     }
-    const bonus = await User.find({bonus:req.body.bonus})
-    if(bonus){
-        return res.status(400).json({msg:"You've already added a bonus"})
+    const bonus = await User.find({ bonus: req.body.bonus })
+    if (bonus) {
+        return res.status(400).json({ msg: "You've already added a bonus" })
     }
     const updateUser = await User.findByIdAndUpdate({ _id: req.params.id },
         {
             userBonus: req.body
         }
     )
-    const addToHistory = await User.findByIdAndUpdate({_id:req.params.id},
+    const addToHistory = await User.findByIdAndUpdate({ _id: req.params.id },
         {
-            $push:{
+            $push: {
                 bonusHistory: req.body
             }
         }
@@ -102,26 +102,26 @@ const addBonus = asyncHandler(async (req, res) => {
     res.status(200).json(users)
 })
 
-const setApproved = asyncHandler(async (req, res) =>{
-    const user = await User.find({_id:req.params.id})
+const setApproved = asyncHandler(async (req, res) => {
+    const user = await User.find({ _id: req.params.id })
     console.log(req.body.status)
-    if(!user){
-        return res.status(400).json({msg:'User not found'})
+    if (!user) {
+        return res.status(400).json({ msg: 'User not found' })
     }
-    const setApproval = await User.findByIdAndUpdate({_id:req.params.id},{
+    const setApproval = await User.findByIdAndUpdate({ _id: req.params.id }, {
         'userBonus.approved': req.body.status.approved
     })
     const users = await User.find()
     res.status(200).json(users)
 })
 
-const setDeclined = asyncHandler(async(req, res)=>{
-    const user = await User.find({_id:req.params.id})
+const setDeclined = asyncHandler(async (req, res) => {
+    const user = await User.find({ _id: req.params.id })
     console.log(req.body.status)
-    if(!user){
-        return res.status(400).json({msg:'User not found'})
+    if (!user) {
+        return res.status(400).json({ msg: 'User not found' })
     }
-    const setApproval = await User.findByIdAndUpdate({_id:req.params.id},{
+    const setApproval = await User.findByIdAndUpdate({ _id: req.params.id }, {
         'userBonus.declined': req.body.status.declined
     })
     const users = await User.find()
@@ -138,11 +138,11 @@ const addWallet = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('User not found')
     }
-    const wallet = await User.find({walletNumber:req.body.wallet.walletNumber})
-    if(wallet){
-        return res.status(400).json({msg:"Wallet already exists"})
+    const wallet = await User.find({ walletNumber: req.body.wallet.walletNumber })
+    if (wallet) {
+        return res.status(400).json({ msg: "Wallet already exists" })
     }
-    const updateWallet = await User.findByIdAndUpdate({_id: req.params.id},
+    const updateWallet = await User.findByIdAndUpdate({ _id: req.params.id },
         {
 
             wallet: req.body.wallet._id
