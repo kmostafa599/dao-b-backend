@@ -5,7 +5,7 @@ const { getTeams, setTeam } = require('../controllers/teamControllers')
 
 
 router.get('/',getTeams) //get team
-router.post('/', setTeam)
+router.post('/create', setTeam)
 
 
 module.exports = router
